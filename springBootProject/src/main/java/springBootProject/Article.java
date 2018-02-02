@@ -19,10 +19,13 @@ public class Article  implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="article_id")
 	private int article_id;
+	
 	@Column(name="title")
 	private String title;
+	
 	@Column(name="category")
 	private String category;
+	
 	/**
 	 * @return the articleId
 	 */
