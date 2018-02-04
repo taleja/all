@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
@@ -61,5 +62,11 @@ public class ArticleController {
 		articleService.deleteArticle(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}	
+	
+	@GetMapping("/test")
+	@ResponseBody
+	public String getString() {
+		return "Olena&Denis";
+	}
 	
 }

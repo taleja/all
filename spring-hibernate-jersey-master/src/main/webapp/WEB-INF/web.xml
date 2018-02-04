@@ -30,6 +30,10 @@
         </listener-class>
     </listener>
 
+	<listener>
+		<listener-class>servlet.ServletContextListenerExample</listener-class>
+	</listener>
+
     <servlet>
         <servlet-name>jersey-servlet</servlet-name>
         <servlet-class>
@@ -56,5 +60,15 @@
         <servlet-name>jersey-servlet</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
+
+	<filter>
+		<filter-name>LogFilter</filter-name>
+		<filter-class>servlet.LogFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>LogFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 </web-app>

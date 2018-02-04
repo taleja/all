@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,8 @@ public class ArticleDAO implements IArticleDAO{
 	
 	@PersistenceContext
 	private EntityManager entityManager;
+	@Autowired
+	private LoggerService loggerService;
 
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticles() {

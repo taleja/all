@@ -2,6 +2,8 @@ package springBootProject;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 /**
@@ -19,7 +21,13 @@ public class ArticleService implements IArticleService{
 	}
 
 	public Article getArticleById(int articleId) {
-		Article obj =  articleDAO.getArticleById(articleId);
+		Article obj = null;
+		try {
+			obj =  articleDAO.getArticleById(articleId);			
+		}
+		catch (EntityNotFoundException e){
+			//e.printStackTrace();
+		}
 		return obj;
 	}
 
