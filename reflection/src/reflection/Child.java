@@ -1,8 +1,14 @@
 package reflection;
 
-public class Child extends AbstractParent<String> implements ReflectionInterface{
+import javax.annotation.Resource;
 
+@MyAnnotation(name="annotation", value=2)
+//@Resource(name = "foo", description = "bar")
+public class Child<T> extends AbstractParent<String> implements ReflectionInterface{
+
+	@MyAnnotation(name="annotation", value=2)
 	private String str;
+	@TestAnnotation(someValue="someValue")
 	private Integer one;
 	
 	public Child() {}
@@ -45,5 +51,13 @@ public class Child extends AbstractParent<String> implements ReflectionInterface
 	
 	public Integer calculate(int a, int b) {
 		return a - b;
+	}
+	
+	public void nothinToReturn(int a, int b) {
+		System.out.println(Math.addExact(a, b));
+	}
+	
+	public T methodWithGeneric(T t) {
+		return t; 
 	}
 }

@@ -1,5 +1,6 @@
 package reflection;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,23 +13,25 @@ public class ReflectionMain {
 //		printAllFields(Child.class); 
 //		printAllMethods(Child.class);
 //		findParentGeneric(Child.class); 
-		Child child = new Child("stringValue", 1);
 //		printFieldValue(child, "str");
-//		invokeMethodAndPrintResult(child, "calculate", 1,2);
-		
+//		invokeMethodAndPrintResult(child, "calculate", 1,2);		
 		//TODO 
-		invokeMethodAndPrintResult(child, "printLine", 2);  
-		invokeMethodAndPrintResult(child, "printLine", "Ronichka");  
+//		invokeMethodAndPrintResult(child, "printLine", 2);  
+//		invokeMethodAndPrintResult(child, "nothinToReturn", child.getClass(), new Class[] {Integer.TYPE, Integer.TYPE}, 1,2); 		
+//		printAllAnnotations(Child.class);
+		
+		Child child = new Child("stringValue", 1);
+		invokeMethodAndPrintResult(child, "methodWithGeneric", "Ronichka");  
 	}
 
-	public static void printAllFields(Class clazz) {
+	public static void printAllFields(Class<?> clazz) {
 		System.out.println(clazz.getName()); 
 		
 		if(clazz.getSuperclass() != null) {
 			printAllFields(clazz.getSuperclass());			
 		}
 		
-		for(Class interfazze: clazz.getInterfaces()) {
+		for(Class<?> interfazze: clazz.getInterfaces()) {
 			printAllFields(interfazze); 
 		}
 		
@@ -38,14 +41,14 @@ public class ReflectionMain {
 		System.out.println("-------------------------------------");		 
 	}
 	
-	public static void printAllMethods(Class clazz) {
+	public static void printAllMethods(Class<?> clazz) {
 		System.out.println(clazz.getName()); 
 		
 		if(clazz.getSuperclass() != null) {
 			printAllMethods(clazz.getSuperclass());			
 		}
 		
-		for(Class interfazze: clazz.getInterfaces()) {
+		for(Class<?> interfazze: clazz.getInterfaces()) {
 			printAllMethods(interfazze); 
 		}
 		
@@ -55,10 +58,37 @@ public class ReflectionMain {
 		System.out.println("-------------------------------------");		 
 	}
 	
-	//TODO print all annotations and their attributes values
-	public static void printAllAnnotations(Class clazz) {}
+	public static void printAllAnnotations(Class<?> clazz) throws Exception {
+		System.out.println(clazz.getName());
+		 if(clazz.getSuperclass() != null) {
+			 printAllAnnotations(clazz.getSuperclass());
+		 }
+		
+		for (Annotation annotation : clazz.getAnnotations()) {
+			Class<? extends Annotation> annotationType = annotation.annotationType();
+			System.out.println(clazz.getName());
+			System.out.println("Annotation name: " + annotationType.getName());
+
+			for (Method annotationMethod : annotationType.getDeclaredMethods()) {
+				Object value = annotationMethod.invoke(annotation, (Object[]) null);
+				System.out.println("Method name: " + annotationMethod.getName() + "Its value: " + value);
+			}
+
+			for (Field field : clazz.getDeclaredFields()) {
+				for(Annotation annot: field.getAnnotations()) {
+					System.out.println("Field name: " + field.getName() + "Annotation: " + annot); 
+				}
+//				Annotation ann = field.getAnnotation(MyAnnotation.class);
+//				if(ann instanceof MyAnnotation) {
+//					MyAnnotation myAnnotation = (MyAnnotation) ann;
+//					System.out.println(myAnnotation.name());
+//				}				
+			}
+		}
+		System.out.println("==============================");
+	}
 	
-	public static void findParentGeneric(Class clazz) {
+	public static void findParentGeneric(Class<?> clazz) {
 		Type type = clazz.getGenericSuperclass();
 		System.out.println(type); 
 
@@ -72,7 +102,7 @@ public class ReflectionMain {
 	}
 	
 	public static void printFieldValue(Object obj, String fieldName) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		Class clazz =  obj.getClass();
+		Class<? extends Object> clazz =  obj.getClass();
 		Field field = clazz.getDeclaredField(fieldName);
 		field.setAccessible(true); 
 		Object rv = field.get(obj);
@@ -80,13 +110,35 @@ public class ReflectionMain {
 	}
 	
 	public static void invokeMethodAndPrintResult(Object obj, String methodName, Object...parameters) throws Exception {
-		Class clazz =  obj.getClass();
+		Class<? extends Object> clazz =  obj.getClass();
 		Class [] parametersType = new Class [parameters.length];
 		
-		for(int i = 0; i < parameters.length; i++) {
+//		Type type = clazz.getGenericSuperclass();
+//		ParameterizedType paramType = (ParameterizedType) type;
+//		Type[] actualType = paramType.getActualTypeArguments();
+		
+		for(int i = 0; i < parametersType.length; i++) {
 			parametersType[i] = parameters[i].getClass();
 		}
-
+//		Method m = null;
+//		for(Method method: clazz.getMethods()) {
+//			if(method.getName().equals(methodName)){
+//				m = method;
+//				break;
+//			}
+//		}
+//		
+//		Type[] genericParameterTypes = m.getGenericParameterTypes();
+//		
+//		Type[] actualParameters = new Type[genericParameterTypes.length];
+//		
+//		for(int i = 0; i < genericParameterTypes.length; i++) {
+//			
+//			if(genericParameterTypes[i] instanceof ParameterizedType) {
+//				actualParameters = ((ParameterizedType)genericParameterTypes[i]).getActualTypeArguments();
+//			}
+//		}
+		
 //		Method method = clazz.getDeclaredMethod(methodName, new Class[] {Integer.TYPE, Integer.TYPE});
 		invokeMethodAndPrintResult(obj, methodName, clazz, parametersType, parameters); 
 	}
@@ -98,4 +150,6 @@ public class ReflectionMain {
 		Object rv = method.invoke(obj, parameters);
 		System.out.println(rv);
 	}
+	
+
 }

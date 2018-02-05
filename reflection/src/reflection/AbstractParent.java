@@ -1,7 +1,9 @@
 package reflection;
 
+@TestAnnotation(someValue="someValue")
 public class AbstractParent <T>{
 
+	@TestAnnotation(someValue="someValue")
 	private String field;
 
 	public AbstractParent() {}
