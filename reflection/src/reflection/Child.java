@@ -1,6 +1,6 @@
 package reflection;
 
-import javax.annotation.Resource;
+import java.lang.annotation.Annotation;
 
 @MyAnnotation(name="annotation", value=2)
 //@Resource(name = "foo", description = "bar")
@@ -60,4 +60,6 @@ public class Child<T> extends AbstractParent<String> implements ReflectionInterf
 	public T methodWithGeneric(T t) {
 		return t; 
 	}
+
+	
 }

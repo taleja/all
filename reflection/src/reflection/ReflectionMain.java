@@ -6,6 +6,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ReflectionMain {
 
@@ -17,11 +20,28 @@ public class ReflectionMain {
 //		invokeMethodAndPrintResult(child, "calculate", 1,2);		
 		//TODO 
 //		invokeMethodAndPrintResult(child, "printLine", 2);  
+		Child child = new Child("stringValue", 1);
+		Child.class.newInstance();
 //		invokeMethodAndPrintResult(child, "nothinToReturn", child.getClass(), new Class[] {Integer.TYPE, Integer.TYPE}, 1,2); 		
 //		printAllAnnotations(Child.class);
 		
-		Child child = new Child("stringValue", 1);
-		invokeMethodAndPrintResult(child, "methodWithGeneric", "Ronichka");  
+		//invokeMethodAndPrintResult(child, "methodWithGeneric", "Ronichka");  
+		//List<String> strings = createList();
+		//printList(strings);
+	}
+	
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private static List<String> createList() {
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		list.add(2);
+		return (List)list;
+	}
+
+	private static void printList(List<? super String> strings) {
+		System.out.println(strings);
+		System.out.println(strings.get(0));
 	}
 
 	public static void printAllFields(Class<?> clazz) {
@@ -113,31 +133,31 @@ public class ReflectionMain {
 		Class<? extends Object> clazz =  obj.getClass();
 		Class [] parametersType = new Class [parameters.length];
 		
-//		Type type = clazz.getGenericSuperclass();
-//		ParameterizedType paramType = (ParameterizedType) type;
-//		Type[] actualType = paramType.getActualTypeArguments();
+		Type type = clazz.getGenericSuperclass();
+		ParameterizedType paramType = (ParameterizedType) type;
+		Type[] actualType = paramType.getActualTypeArguments();
 		
 		for(int i = 0; i < parametersType.length; i++) {
 			parametersType[i] = parameters[i].getClass();
 		}
-//		Method m = null;
-//		for(Method method: clazz.getMethods()) {
-//			if(method.getName().equals(methodName)){
-//				m = method;
-//				break;
-//			}
-//		}
-//		
-//		Type[] genericParameterTypes = m.getGenericParameterTypes();
-//		
-//		Type[] actualParameters = new Type[genericParameterTypes.length];
-//		
-//		for(int i = 0; i < genericParameterTypes.length; i++) {
-//			
-//			if(genericParameterTypes[i] instanceof ParameterizedType) {
-//				actualParameters = ((ParameterizedType)genericParameterTypes[i]).getActualTypeArguments();
-//			}
-//		}
+		Method m = null;
+		for(Method method: clazz.getMethods()) {
+			if(method.getName().equals(methodName)){
+				m = method;
+				break;
+			}
+		}
+		
+		Type[] genericParameterTypes = m.getGenericParameterTypes();
+		
+		Type[] actualParameters = new Type[genericParameterTypes.length];
+		
+		for(int i = 0; i < genericParameterTypes.length; i++) {
+			
+			if(genericParameterTypes[i] instanceof ParameterizedType) {
+				actualParameters = ((ParameterizedType)genericParameterTypes[i]).getActualTypeArguments();
+			}
+		}
 		
 //		Method method = clazz.getDeclaredMethod(methodName, new Class[] {Integer.TYPE, Integer.TYPE});
 		invokeMethodAndPrintResult(obj, methodName, clazz, parametersType, parameters); 
