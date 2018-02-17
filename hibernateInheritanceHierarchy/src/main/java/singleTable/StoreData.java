@@ -10,7 +10,7 @@ public class StoreData {
 
 
 	public static void main(String[] args) {
-
+	
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernate_test");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -34,6 +34,7 @@ public class StoreData {
 		em.getTransaction().commit();
 		
 		List accounts = em.createQuery("select a from Employee a").getResultList();
+
 		emf.close();
 	}
 
