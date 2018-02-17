@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class ReflectionMain {
 
@@ -20,8 +21,8 @@ public class ReflectionMain {
 //		invokeMethodAndPrintResult(child, "calculate", 1,2);		
 		//TODO 
 //		invokeMethodAndPrintResult(child, "printLine", 2);  
-		Child child = new Child("stringValue", 1);
-		Child.class.newInstance();
+//		Child child = new Child("stringValue", 1);
+//		Child.class.newInstance();
 //		invokeMethodAndPrintResult(child, "nothinToReturn", child.getClass(), new Class[] {Integer.TYPE, Integer.TYPE}, 1,2); 		
 //		printAllAnnotations(Child.class);
 		
