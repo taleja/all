@@ -1,7 +1,6 @@
 package rabbitMQ;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeoutException;
 
 import com.rabbitmq.client.AMQP;
