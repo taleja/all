@@ -12,8 +12,8 @@ public class InterviewQuestions {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-//		Cat cat = new Cat();
-//		cat.foo();
+		Animal animal = new Cat();
+		animal.foo();
 		
 //		for(int i = 0; i < 24; i++) {
 //			int j = i % 4;
@@ -30,10 +30,10 @@ public class InterviewQuestions {
 //		test();
 		
 //		System.out.println(cutSticks(lengths));
-		int [] first = new int[] {6,5,0,4,-1,2}; 
-		int [] second = new int[] {5,0,6,7,3,9};
-		
-		System.out.println(Arrays.toString(sortedArray(first, second)));
+//		int [] first = new int[] {6,5,0,4,-1,2}; 
+//		int [] second = new int[] {5,0,6,7,3,9};
+//		
+//		System.out.println(Arrays.toString(sortedArray(first, second)));
 	}
 	
 //	private static int test() {
@@ -110,5 +110,8 @@ public class InterviewQuestions {
     	
     	return result;
     }
+    
+    
+    
     
 }
