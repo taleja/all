@@ -2,6 +2,8 @@ package springBootProject;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -62,6 +64,24 @@ public class ArticleController {
 		articleService.deleteArticle(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}	
+	
+	@Transactional
+	@GetMapping("test1")
+	public ResponseEntity<Void> test1(){
+		Article article = articleService.getArticleById(1);
+		article.setTitle(article.getTitle() + "1"); 
+		articleService.updateArticle(article); 
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+	
+	@Transactional
+	@GetMapping("test2")
+	public ResponseEntity<Void> test2(){
+		Article article = articleService.getArticleById(1);
+		article.setCategory(article.getCategory() + "1"); 
+		articleService.updateArticle(article); 
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
 	
 	@GetMapping("/test")
 	@ResponseBody

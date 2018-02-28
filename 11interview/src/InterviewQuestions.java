@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * @author olena.viliuzhanina
@@ -12,106 +18,147 @@ public class InterviewQuestions {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Animal animal = new Cat();
-		animal.foo();
 		
-//		for(int i = 0; i < 24; i++) {
-//			int j = i % 4;
-//			if(j != 0) {
-//				System.out.println("i = " + i);
-//			}
-//		}
+
+		int[] arr = new int[] { 6, 0, 9, 5, 2 };
+		int[] arr1 = new int[arr.length];
+
+		for (int i = 0; i < arr.length; i++) {
+			arr1[i] = arr[arr.length - 1 - i];
+		}
+
+		for (int i = 0; i < arr1.length; i++) {
+			System.out.println(arr1[i]);
+		}
+
+		String s = "name";
+		Map<String, Integer> phoneBook = new HashMap<>();
+		phoneBook.put("name", new Integer(847));
+		if (!phoneBook.containsKey(s)) {
+			phoneBook.put("name", new Integer(847));
+		}
+
+		phoneBook.entrySet().forEach(entry -> System.out.println(entry.getKey() + "=" + entry.getValue()));
+
+		solve(5, 6, 7, 3, 6, 10);
 		
-//		boolean b = false;
-//		if(b = true) {
-//			System.out.println("Hello"); 
-//		}
-		
-//		test();
-		
-//		System.out.println(cutSticks(lengths));
-//		int [] first = new int[] {6,5,0,4,-1,2}; 
-//		int [] second = new int[] {5,0,6,7,3,9};
-//		
-//		System.out.println(Arrays.toString(sortedArray(first, second)));
+		long[] ar = new long[] {};
+		//aVeryBigSum(int n, long[] ar);
+
+		//
+
+		// Animal animal = new Cat();
+		// animal.foo();
+
+		// for(int i = 0; i < 24; i++) {
+		// int j = i % 4;
+		// if(j != 0) {
+		// System.out.println("i = " + i);
+		// }
+		// }
+
+		// boolean b = false;
+		// if(b = true) {
+		// System.out.println("Hello");
+		// }
+
+		// test();
+
+		// System.out.println(cutSticks(lengths));
+		// int [] first = new int[] {6,5,0,4,-1,2};
+		// int [] second = new int[] {5,0,6,7,3,9};
+		//
+		// System.out.println(Arrays.toString(sortedArray(first, second)));
+	}
+
+	static int[] solve(int a0, int a1, int a2, int b0, int b1, int b2) {
+		int alicePoints = 0;
+		int bobPoints = 0;
+
+		alicePoints = ((a0 > b0) ? 1 : 0) + ((a1 > b1) ? 1 : 0) + ((a2 > b2) ? 1 : 0);
+		bobPoints = ((a0 < b0) ? 1 : 0) + ((a1 < b1) ? 1 : 0) + ((a2 < b2) ? 1 : 0);
+		int[] result = new int[] { alicePoints, bobPoints };
+
+		System.out.println(result[0] + " " + result[1]);
+		return result;
+
 	}
 	
-//	private static int test() {
-//		try {
-//			System.out.println("1");
-//			return 1;
-//		}finally {
-//			System.out.println("2");
-//			return 2;
-//		}		
-//	}
-//	
-    static int[] cutSticks(int[] lengths) {
-        int minValue = lengths[0];
-        int []array = lengths;
-        List<Integer> denotesNumbers = new ArrayList<Integer>();
-
-        
-        for(int j = 0; j < lengths.length; j++) {
-        	if(lengths[j] <= 1) {
-        		break;
-        	} 
-        	
-        	for(int i = 0; i < lengths.length; i++){
-        		if(minValue > 0 && lengths[i] < minValue){
-        			minValue = lengths[i]; 
-        		}
-        	}
-        	
-        	for(int i = 0; i < lengths.length; i++){
-        		if(lengths[i] > 0){
-        			array[i] = lengths[i] - minValue;  
-
-        		}           
-        	}
-        	
-        	int maxValue = 0;
-       	
-        	for(int i = 0; i < lengths.length; i++){
-        		if(lengths[i] > maxValue){
-        			maxValue = lengths[i]; 
-        		}
-        	}
-        	
-        	denotesNumbers.add(maxValue);
-        	maxValue = 0;
-        }
-        
-
-        int[] rv = new int[denotesNumbers.size()];
-        for(int i = 0; i < denotesNumbers.size(); i++){
-            rv[i] = denotesNumbers.get(i); 
-            System.out.println(rv[i]);
-        }
-        
-        return rv;
+	static long aVeryBigSum(int n, long[] ar) {
+        long sumLong = Arrays.stream(ar).sum();
+        return sumLong + (long)n;
     }
-    
-    
-    public static int [] sortedArray(int[]...arrays) {
-    	int length = 0;
-    	for(int[] array: arrays) {
-    		length += array.length;
-    	}		
-    	
-    	int[] result = new int[length];
-    	
-    	int offset = 0;
-    	for(int[] array: arrays) {
-    		System.arraycopy(array, 0, result, offset, array.length); 
-    		offset += array.length;
-    	}
-    	Arrays.sort(result);
-    	
-    	return result;
-    }
-    
-    
-    
-    
+
+	private static int test() {
+		try {
+			System.out.println("1");
+			return 1;
+		} finally {
+			System.out.println("2");
+			return 2;
+		}
+	}
+
+	static int[] cutSticks(int[] lengths) {
+		int minValue = lengths[0];
+		int[] array = lengths;
+		List<Integer> denotesNumbers = new ArrayList<Integer>();
+
+		for (int j = 0; j < lengths.length; j++) {
+			if (lengths[j] <= 1) {
+				break;
+			}
+
+			for (int i = 0; i < lengths.length; i++) {
+				if (minValue > 0 && lengths[i] < minValue) {
+					minValue = lengths[i];
+				}
+			}
+
+			for (int i = 0; i < lengths.length; i++) {
+				if (lengths[i] > 0) {
+					array[i] = lengths[i] - minValue;
+
+				}
+			}
+
+			int maxValue = 0;
+
+			for (int i = 0; i < lengths.length; i++) {
+				if (lengths[i] > maxValue) {
+					maxValue = lengths[i];
+				}
+			}
+
+			denotesNumbers.add(maxValue);
+			maxValue = 0;
+		}
+
+		int[] rv = new int[denotesNumbers.size()];
+		for (int i = 0; i < denotesNumbers.size(); i++) {
+			rv[i] = denotesNumbers.get(i);
+			System.out.println(rv[i]);
+		}
+
+		return rv;
+	}
+
+	public static int[] sortedArray(int[]... arrays) {
+		int length = 0;
+		for (int[] array : arrays) {
+			length += array.length;
+		}
+
+		int[] result = new int[length];
+
+		int offset = 0;
+		for (int[] array : arrays) {
+			System.arraycopy(array, 0, result, offset, array.length);
+			offset += array.length;
+		}
+		Arrays.sort(result);
+
+		return result;
+	}
+
 }
