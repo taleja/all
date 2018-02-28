@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public class WildcardsGenericTest {
 		numbList = intList;
 		
 		//numbList.add(new Integer(5));
+		
 
 	}
 

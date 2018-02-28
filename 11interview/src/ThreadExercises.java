@@ -22,7 +22,7 @@ public class ThreadExercises {
 		for (int i = 0; i < 100; i++) {
 			MyThread myThread = new MyThread();
 			myThread.start();
-			myThread.join();
+			//myThread.join();
 			message = "Second message";
 			Thread.sleep(1000);
 			System.out.println(message);
