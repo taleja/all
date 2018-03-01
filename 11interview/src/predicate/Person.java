@@ -4,7 +4,7 @@ package predicate;
  * @author olena.viliuzhanina
  *
  */
-public class Person {
+public class Person implements Comparable<Person>{ 
 	
 	private String firstName;
 	private String lastName;
@@ -53,6 +53,11 @@ public class Person {
 	@Override
 	public String toString() {
 		return firstName + " " + lastName + " " + gender + " " + age;
+	}
+	
+	@Override
+	public int compareTo(Person another) {
+		return this.firstName.compareTo(another.firstName); 
 	}
 
 }
