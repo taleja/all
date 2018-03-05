@@ -14,6 +14,6 @@ public interface IRecordingService {
 
 	void updateRecording(Recording recording);
 
-	void deleteRecording(long id);
+	void deleteRecording(Recording recording);
 
 }

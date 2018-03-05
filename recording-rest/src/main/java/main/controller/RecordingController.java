@@ -32,14 +32,14 @@ public class RecordingController {
 		return new ResponseEntity<>(recording, HttpStatus.OK); 
 	}
 	
-	@GetMapping("getRecordings")
+	@GetMapping("recordings")
 	public ResponseEntity<List<Recording>> getRecordings(){
 		List<Recording> recordings = recordingService.getRecordings();
 		return new ResponseEntity<List<Recording>>(recordings, HttpStatus.OK); 
 	}
 	
 	@PostMapping("recording")
-	public ResponseEntity<Void> setRecording(@RequestBody Recording recording, UriComponentsBuilder builder){
+	public ResponseEntity<Void> createRecording(@RequestBody Recording recording, UriComponentsBuilder builder){
 		boolean isExist = recordingService.addRecording(recording);
 		if(!isExist) {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
@@ -57,7 +57,8 @@ public class RecordingController {
 	
 	@DeleteMapping("recording/{id}")
 	public ResponseEntity<Void> deleteRecording(@PathVariable("id") long id){
-		recordingService.deleteRecording(id);
+		Recording recording = recordingService.getRecordingById(id);
+		recordingService.deleteRecording(recording);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	

@@ -12,10 +12,9 @@ public interface IRecordingDao {
 
 	void addRecording(Recording recording);
 
-	boolean isExist(Recording recording);
-
 	void updateRecording(Recording recording);
 
-	void delete(long recordingId);
+	void delete(Recording recording);
 
+	boolean isExist(Recording recording);
 }

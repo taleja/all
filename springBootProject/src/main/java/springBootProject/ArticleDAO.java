@@ -38,19 +38,19 @@ public class ArticleDAO implements IArticleDAO{
 	}
 
 	public void updateArticle(Article article) {
-		//Article artcl =  getArticleById(article.getArticleId());
-		//artcl.setTitle(article.getTitle());
-		//artcl.setCategory(article.getCategory());
-		System.out.println("==============");
+		Article artcl =  getArticleById(article.getArticleId());
+		artcl.setTitle(article.getTitle());
+		artcl.setCategory(article.getCategory());
+		entityManager.merge(article);
+		/*System.out.println("==============");
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		//entityManager.merge(article);
 		System.out.println("title: " + article.getTitle() + " category: " +article.getCategory()); 
-		entityManager.flush();
+		entityManager.flush();*/
 	}
 
 	public void deleteArticle(int articleId) {

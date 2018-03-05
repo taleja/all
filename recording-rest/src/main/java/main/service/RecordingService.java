@@ -35,7 +35,7 @@ public class RecordingService implements IRecordingService {
 		recordingDAO.updateRecording(recording);
 	}
 
-	public void deleteRecording(long id) {
-		recordingDAO.delete(id);
+	public void deleteRecording(Recording recording) {
+		recordingDAO.delete(recording);
 	}
 }
