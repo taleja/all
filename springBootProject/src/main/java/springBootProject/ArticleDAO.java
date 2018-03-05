@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author olena.viliuzhanina
  *
  */
-//@Transactional
+@Transactional
 @Repository
 public class ArticleDAO implements IArticleDAO{
 	

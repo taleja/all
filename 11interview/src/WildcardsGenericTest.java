@@ -20,6 +20,10 @@ public class WildcardsGenericTest {
 		
 		//numbList.add(new Integer(5));
 		
+		String a = "abcd";
+		System.out.println(a);
+		String newA = a.replace('a','e');
+		System.out.println(a + " " + newA);
 
 	}
 
