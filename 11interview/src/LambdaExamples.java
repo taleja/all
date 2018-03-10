@@ -58,9 +58,11 @@ public class LambdaExamples {
 		 
 		 List<Person> personsList = new ArrayList<>();
 		 personsList.addAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10));
-		 
-		 //personsList.stream().filter(p -> p.getFirstName().startsWith("D")).forEach(System.out::println); 
-		// personsList.stream().map(p -> p.getFirstName().toUpperCase()).forEach(System.out::println);
+		 System.out.println("++++++++++++++++++++");
+		 personsList.stream().filter(p -> p instanceof Person).forEach(System.out::println); 
+		 System.out.println("++++++++++++++++++++");
+//		 personsList.stream().map(p -> p.getFirstName().toUpperCase()).forEach(System.out::println);
+
 		 personsList.stream().sorted().map(p -> p.getFirstName()).forEach(System.out::println); 
 		 
 		 List<String> toUpperCase = personsList.stream().sorted().map(p -> p.getFirstName().toUpperCase()).collect(Collectors.toList());

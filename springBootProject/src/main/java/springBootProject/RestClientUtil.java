@@ -49,6 +49,8 @@ public class RestClientUtil {
 		objArticle.setCategory("Spring");
 		HttpEntity<Article> requestEntity = new HttpEntity<Article>(objArticle, headers);
 		URI uri = restTemplate.postForLocation(url, requestEntity);
+		restTemplate.postForObject(url, requestEntity, objArticle.getClass()); 
+		//System.out.println(restTemplate.postForObject(url, requestEntity, objArticle.getClass()));
 		System.out.println(uri.getPath());	
 	}
 	
@@ -76,10 +78,10 @@ public class RestClientUtil {
 	
 	public static void main(String args[]) {
 		RestClientUtil util = new RestClientUtil();
-//		util.addArticleDemo();
+		util.addArticleDemo();
 //		util.getArticleByIdDemo();
 //    	util.updateArticleDemo();
-		util.getAllArticlesDemo();
+//		util.getAllArticlesDemo();
 //		util.deleteArticleDemo();
 	}
 	

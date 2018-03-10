@@ -3,7 +3,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -19,7 +21,23 @@ public class InterviewQuestions {
 	 */
 	public static void main(String[] args) {
 		
+		Animal.Dog nestedNonStatic = new Animal().new Dog();
+		nestedNonStatic.foo();
+		Animal.Horse nestedStatic = new Animal.Horse();
+		
+		
+		
+		List<String> list = new ArrayList<String>();
+		list.add("qqqqq");
+		list.add("eeee");
+		list.add("rrrrr");
+		list.add("vvvvv");
+		ListIterator<String> iterator = list.listIterator();
+		while(iterator.hasNext()) {
+			System.out.println(iterator.next()); 
+		}
 
+		
 		int[] arr = new int[] { 6, 0, 9, 5, 2 };
 		int[] arr1 = new int[arr.length];
 
@@ -42,7 +60,7 @@ public class InterviewQuestions {
 
 		solve(5, 6, 7, 3, 6, 10);
 		
-		long[] ar = new long[] {};
+		long[] ar = new long[] {}; 
 		//aVeryBigSum(int n, long[] ar);
 
 		//
