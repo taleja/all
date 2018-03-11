@@ -1,13 +1,19 @@
 package com.paazl.scheduling;
 
-import com.paazl.gui.GuiInterface;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.math.BigInteger;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.Date;
+import com.paazl.gui.GuiInterface;
+import com.paazl.rest.ShepherdClient;
 
 @Component
 public class ServerStatusTask {
@@ -20,17 +26,19 @@ public class ServerStatusTask {
      */
 
     private GuiInterface guiInterface;
+    private ShepherdClient shepherdClient;
 
     @Autowired
     public ServerStatusTask(
-            GuiInterface guiInterface) {
+            GuiInterface guiInterface, ShepherdClient shepherdClient) {
 
         this.guiInterface = guiInterface;
+        this.shepherdClient = shepherdClient;
     }
 
     @Scheduled(cron="${scheduling.server_status.cron}")
-    public void getServerStatus() {
-        guiInterface.addServerFeedback("Server status... " + new Date().toString());
+    public void getServerStatus() {		
+        guiInterface.addServerFeedback(shepherdClient.getServerStatus());
     }
 
 }

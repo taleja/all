@@ -35,9 +35,12 @@ public class ShepherdService {
     }
 
     public String orderNewSheep(int nofSheepDesired) {
-
-        // What to do, what to do...
-
-        return String.format("In total %s sheep were ordered and added to your flock!", 333);
+    	
+    	for(int i = 0; i < nofSheepDesired; i++) {
+    		Sheep sheep = new Sheep();
+    		sheepRepository.save(sheep);
+    	}
+     
+        return String.format("In total %s sheep were ordered and added to your flock!", nofSheepDesired);
     }
 }
