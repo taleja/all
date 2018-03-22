@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class InterviewQuestions {
 	 */
 	public static void main(String[] args) {
 		
-		Animal.Dog nestedNonStatic = new Animal().new Dog();
+		/*Animal.Dog nestedNonStatic = new Animal().new Dog();
 		nestedNonStatic.foo();
 		Animal.Horse nestedStatic = new Animal.Horse();
 		
@@ -51,6 +52,7 @@ public class InterviewQuestions {
 
 		String s = "name";
 		Map<String, Integer> phoneBook = new HashMap<>();
+		
 		phoneBook.put("name", new Integer(847));
 		if (!phoneBook.containsKey(s)) {
 			phoneBook.put("name", new Integer(847));
@@ -60,11 +62,38 @@ public class InterviewQuestions {
 
 		solve(5, 6, 7, 3, 6, 10);
 		
+		List<String> list111 = new ArrayList<>();
+	
+		
 		long[] ar = new long[] {}; 
-		//aVeryBigSum(int n, long[] ar);
+		//aVeryBigSum(int n, long[] ar); */
 
-		//
+		//Map, Entry, EntrySet
+		
+		Map<String, String> myMap = new HashMap<String, String>();
+	
+		myMap.put("One", "1");
+		myMap.put("One", "2");
+		myMap.put("One", "3");
+		myMap.put("One1", "4");
+		
+		for(Map.Entry<String, String> value: myMap.entrySet()) {
+			System.out.println(myMap.entrySet().size());
+			System.out.println(value.getValue() + " " + value.getKey()); 
+		}
+		
+		for(String key: myMap.keySet()) {
+			System.out.println(key);
+		}
+		
+		Iterator<Map.Entry<String, String>> iterator = myMap.entrySet().iterator();
+		while(iterator.hasNext()) {
+			System.out.println(iterator.next()); 
+		}
 
+		
+		Map<String, String> linkedHashMap = new LinkedHashMap<String, String>();
+		
 		// Animal animal = new Cat();
 		// animal.foo();
 
