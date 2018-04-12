@@ -10,6 +10,8 @@ function doLogin(){
 	    	var loginResult = JSON.parse(xhttp.responseText);
 	    	if (!loginResult.dropboxConnected){
 	    		document.location="/connect/user/" + loginResult.userId;
+	    	} else {
+	    		document.location="/dashboard.html?userId=" + loginResult.userId;
 	    	}
 	    }
 	};

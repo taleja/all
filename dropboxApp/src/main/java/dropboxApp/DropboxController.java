@@ -1,7 +1,6 @@
 package dropboxApp;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -10,23 +9,16 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
-import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
-import org.apache.commons.httpclient.HttpHost;
-import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -62,6 +54,9 @@ public class DropboxController {
 	@Autowired
 	private UserTokenDAO userTokenDAO;
 	
+	@Autowired
+	private UserDAO userDao;
+	
 	@RequestMapping(value =  "/connect/user/{userId}", method = RequestMethod.GET)
 	public void redirect(HttpServletResponse response, @PathVariable("userId") Long userId) {		
 		//String url = "https://www.dropbox.com/1/oauth2/authorize?client_id=<app key>&response_type=code&redirect_uri=<redirect URI>&state=<CSRF token>";
@@ -92,25 +87,26 @@ public class DropboxController {
 	
 	@RequestMapping(value = "/connect/complete", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void connectComplete(@RequestParam("state") String state, @RequestParam("code") String code) 
+	@ResponseBody
+	public String connectComplete(@RequestParam("state") String state, @RequestParam("code") String code) 
 			throws IOException {
 		
-		HttpHost target = new HttpHost("api.dropbox.com", 443, Protocol.getProtocol("https"));
+		/*HttpHost target = new HttpHost("api.dropbox.com", 443, Protocol.getProtocol("https"));
         CredentialsProvider credsProvider = new BasicCredentialsProvider();
         credsProvider.setCredentials(new AuthScope(target.getHostName(), target.getPort()),
-                					new UsernamePasswordCredentials(this.appKey, this.appSecret));
+                					new UsernamePasswordCredentials(this.appKey, this.appSecret));*/
         CloseableHttpClient httpclient = HttpClients.createDefault();
         
-        HttpPost httpPost = new HttpPost("https://api.dropboxapi.com/oauth2/token");
+        HttpPost httpPostRequest = new HttpPost("https://api.dropboxapi.com/oauth2/token");
         
-        httpPost.addHeader("Authorization", "Basic " + buildBasicAuthCredentials());
+        httpPostRequest.addHeader("Authorization", "Basic " + buildBasicAuthCredentials());
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("code", code));
         params.add(new BasicNameValuePair("grant_type", "authorization_code"));
         params.add(new BasicNameValuePair("redirect_uri", this.redirectURI));
-        httpPost.setEntity(new UrlEncodedFormEntity(params));
+        httpPostRequest.setEntity(new UrlEncodedFormEntity(params));
         
-        CloseableHttpResponse response = httpclient.execute(httpPost);  
+        CloseableHttpResponse response = httpclient.execute(httpPostRequest);  
         String responseString = IOUtils.toString(response.getEntity().getContent());
         
         ObjectMapper mapper = new ObjectMapper();
@@ -123,6 +119,10 @@ public class DropboxController {
         
         System.out.println(responseString);
         httpclient.close();
+        
+        String template = IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("public/success.html"));
+        User user = userDao.getUserById(userToken.getUserId());
+        return template.replaceAll("%USER%", user.getLogin()).replaceAll("%USER_ID%", user.getId().toString()); 
 	}
 	
 	@RequestMapping(value = "/folders/user/{userId}", method = RequestMethod.GET, produces = "application/json")
