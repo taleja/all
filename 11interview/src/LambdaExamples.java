@@ -16,7 +16,7 @@ public class LambdaExamples {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	 public static void main(String [] args) {
 		
 		//Lambda with threads
 		new Thread(() -> {
